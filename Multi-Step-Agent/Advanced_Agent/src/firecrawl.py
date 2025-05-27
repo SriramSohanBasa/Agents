@@ -36,4 +36,3 @@ class FirecrawlService:
             print(e)
             return None
         
-        
