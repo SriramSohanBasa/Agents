@@ -25,7 +25,7 @@ class CompanyInfo(BaseModel):
     competitors: List[str] = []
     ##Developer specific fields
     api_available : Optional[bool] = None
-    language_support = List[str] = []
+    language_support : List[str] = []
     integration_capabilities : List[str] = []
     developer_experience_rating: Optional[str] = None ## we can set Poor, Good, Exxcelent
 

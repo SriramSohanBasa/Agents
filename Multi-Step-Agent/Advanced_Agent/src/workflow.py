@@ -18,7 +18,20 @@ class Workflow:
 
 
     def _build_workflow(self):
-        pass
+            graph = StateGraph(ResearchState)
+
+            graph.add_node("extract_tools", self._extract_tools_step)
+            graph.add_node("research", self._research_step)
+            graph.add_node("analyze", self._analyze_step)
+
+            graph.set_entry_point("extract_tools")
+
+            graph.add_edge("extract_tools", "research")
+            graph.add_edge("research", "analyze")
+            graph.add_edge("analyze", END)
+
+            return graph.compile()
+            
 
 
 
@@ -176,3 +189,8 @@ class Workflow:
     
 
     ##now connecting the nodes in graph. build graph method
+
+    def run(self, query: str) -> ResearchState:
+        initial_state = ResearchState(query = query) ## defauly we get query and then we initialize the steps
+        final_state = self.workflow.invoke(initial_state)
+        return ResearchState(**final_state) ## converting to python obj of custom class
